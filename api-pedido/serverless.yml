@@ -1,0 +1,38 @@
+service: api-pedido
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+
+functions:
+  getPedido:
+    handler: handler.handler
+    events:
+      - http:
+          path: pedido/{tenant_id}/{order_id}
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    PedidoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Pedido
+        AttributeDefinitions:
+          - AttributeName: tenant_id
+            AttributeType: S
+          - AttributeName: order_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: tenant_id
+            KeyType: HASH
+          - AttributeName: order_id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true

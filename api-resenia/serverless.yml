@@ -1,0 +1,16 @@
+service: api-resenia
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+
+functions:
+  getResenia:
+    handler: handler.handler
+    events:
+      - http:
+          path: resenia/{tenant_id}/{product_id}
+          method: get
+          cors: true

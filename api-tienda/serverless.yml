@@ -1,0 +1,38 @@
+service: api-tienda
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+
+functions:
+  tienda:
+    handler: handler.handler
+    events:
+      - http:
+          path: tienda
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    TiendaTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Tienda
+        AttributeDefinitions:
+          - AttributeName: tenant_id
+            AttributeType: S
+          - AttributeName: tienda_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: tenant_id
+            KeyType: HASH
+          - AttributeName: tienda_id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true

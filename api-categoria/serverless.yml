@@ -1,0 +1,16 @@
+service: api-categoria
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+
+functions:
+  createCategoria:
+    handler: handler.create_categoria
+    events:
+      - http:
+          path: categoria
+          method: post
+          cors: true

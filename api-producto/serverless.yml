@@ -1,0 +1,16 @@
+service: api-producto
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+
+functions:
+  createProducto:
+    handler: handler.create_producto
+    events:
+      - http:
+          path: producto
+          method: post
+          cors: true

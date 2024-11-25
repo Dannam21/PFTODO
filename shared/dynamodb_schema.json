@@ -1,0 +1,38 @@
+{
+    "Users": {
+      "tenant_id": "S",
+      "user_id": "S",
+      "email": "S",
+      "created_at": "S",
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "EmailIndex",
+          "KeySchema": [
+            { "AttributeName": "email", "KeyType": "HASH" }
+          ],
+          "Projection": { "ProjectionType": "ALL" }
+        }
+      ]
+    },
+    "Tienda": {
+      "tenant_id": "S",
+      "tienda_id": "S"
+    },
+    "Pedido": {
+      "tenant_id": "S",
+      "order_id": "S"
+    },
+    "Categoria": {
+      "tenant_id": "S",
+      "category_id": "S"
+    },
+    "Producto": {
+      "tenant_id": "S",
+      "product_id": "S"
+    },
+    "Resenia": {
+      "tenant_id": "S",
+      "product_id": "S"
+    }
+  }
+  
